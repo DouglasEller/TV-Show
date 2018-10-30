@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">TV Show</string>
+    <string name="title_activity_main">TV Show</string>
+    <string name="label_shows">Shows</string>
+    <string name="label_favorite">Favorite</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
