@@ -1,4 +1,4 @@
-package br.com.douglas.tvshow.ui.main.favorite
+package br.com.douglas.tvshow.ui.favorite
 
 
 import android.os.Bundle

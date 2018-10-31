@@ -1,7 +1,8 @@
-package br.com.douglas.tvshow.data.network.factory
+package br.com.douglas.tvshow.network.factory
 
 import android.arch.lifecycle.LiveData
-import br.com.douglas.tvshow.data.network.factory.api.ApiResponse
+import br.com.douglas.tvshow.TVShowApplication
+import br.com.douglas.tvshow.network.api.ApiResponse
 import retrofit2.Call
 import retrofit2.CallAdapter
 import retrofit2.Callback
@@ -9,7 +10,7 @@ import retrofit2.Response
 import java.lang.reflect.Type
 import java.util.concurrent.atomic.AtomicBoolean
 
-class LiveDataCallAdapter<R>(private val responseType: Type) : CallAdapter<R, LiveData<ApiResponse<R>>> {
+class LiveDataCallAdapter<R>(private val responseType: Type, private val app: TVShowApplication) : CallAdapter<R, LiveData<ApiResponse<R>>> {
 
     override fun responseType(): Type {
         return responseType

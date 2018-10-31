@@ -14,9 +14,6 @@ class TVShowApplication : Application(), HasActivityInjector {
     @Inject
     lateinit var dispatchingActivityInjector: DispatchingAndroidInjector<Activity>
 
-//    @Inject
-//    lateinit var preferenceHelper: PreferenceHelper
-
     init {
         instance = this
     }

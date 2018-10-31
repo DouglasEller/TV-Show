@@ -1,13 +1,14 @@
-package br.com.douglas.tvshow.data.network.factory
+package br.com.douglas.tvshow.network.factory
 
 import android.arch.lifecycle.LiveData
-import br.com.douglas.tvshow.data.network.factory.api.ApiResponse
+import br.com.douglas.tvshow.TVShowApplication
+import br.com.douglas.tvshow.network.api.ApiResponse
 import retrofit2.CallAdapter
 import retrofit2.Retrofit
 import java.lang.reflect.ParameterizedType
 import java.lang.reflect.Type
 
-class LiveDataCallAdapterFactory : CallAdapter.Factory() {
+class LiveDataCallAdapterFactory constructor(private val app: TVShowApplication) : CallAdapter.Factory() {
 
     override fun get(returnType: Type, annotations: Array<Annotation>, retrofit: Retrofit): CallAdapter<*, *>? {
         if (getRawType(returnType) != LiveData::class.java) {
@@ -25,6 +26,13 @@ class LiveDataCallAdapterFactory : CallAdapter.Factory() {
         }
 
         val bodyType = getParameterUpperBound(0, observableType)
-        return LiveDataCallAdapter<Any>(bodyType)
+        return LiveDataCallAdapter<Any>(bodyType, app)
+    }
+
+    companion object {
+
+        fun create(app: TVShowApplication): LiveDataCallAdapterFactory {
+            return LiveDataCallAdapterFactory(app)
+        }
     }
 }

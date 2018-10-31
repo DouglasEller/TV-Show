@@ -1,22 +1,36 @@
 package br.com.douglas.tvshow.ui.main
 
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.MenuItem
 import br.com.douglas.tvshow.R
 import br.com.douglas.tvshow.base.BaseActivity
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : BaseActivity(),
+        HasSupportFragmentInjector,
         ViewPager.OnPageChangeListener,
         BottomNavigationView.OnNavigationItemSelectedListener {
 
+    private lateinit var viewModel: MainViewModel
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> {
+        return dispatchingAndroidInjector
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
 
         bn_main.setOnNavigationItemSelectedListener(this)
 

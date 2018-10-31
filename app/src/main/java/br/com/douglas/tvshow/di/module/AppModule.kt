@@ -4,8 +4,8 @@ import android.content.Context
 import android.util.Log
 import br.com.douglas.tvshow.BuildConfig
 import br.com.douglas.tvshow.TVShowApplication
-import br.com.douglas.tvshow.data.network.factory.LiveDataCallAdapterFactory
-import br.com.douglas.tvshow.data.network.factory.api.API
+import br.com.douglas.tvshow.network.api.API
+import br.com.douglas.tvshow.network.factory.LiveDataCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.android.AndroidInjectionModule
@@ -53,7 +53,7 @@ class AppModule {
                 .client(provideClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .addCallAdapterFactory(LiveDataCallAdapterFactory())
+                .addCallAdapterFactory(LiveDataCallAdapterFactory(TVShowApplication()))
                 .build()
     }
 

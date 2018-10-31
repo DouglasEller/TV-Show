@@ -1,4 +1,4 @@
-package br.com.douglas.tvshow.data.network.factory.api
+package br.com.douglas.tvshow.network.api
 
 import android.support.annotation.IntRange
 import android.util.Log
@@ -38,22 +38,17 @@ class ApiResponse<T> {
             errorMessage = null
             errorCode = null
         } else {
-            var code: String? = "uknow exception"
-            var message: String? = "404"
+            var code: String? = response.code().toString()
+            var message: String? = response.message()
+
             if (response.errorBody() != null) {
                 try {
                     var json = readResponse(response.errorBody()!!)
                     var result = Gson().fromJson(json, ResponseError::class.java)
                     message = result?.message
                     code = result?.code
-                } catch (ignored: IOException) {
-                    message = "uknow exception"
-                    code = "404"
-                    //Log.e(TAG, "error while parsing response: $ignored")
+                } catch (ignored: Exception) {
                 }
-            }
-            if (message == null || message.trim { it <= ' ' }.isEmpty()) {
-                message = response.message()
             }
             errorMessage = message
             errorCode = code

@@ -3,8 +3,9 @@ package br.com.douglas.tvshow.ui.main
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
-import br.com.douglas.tvshow.ui.main.favorite.FavoriteFragment
-import br.com.douglas.tvshow.ui.main.home.HomeFragment
+import br.com.douglas.tvshow.ui.favorite.FavoriteFragment
+import br.com.douglas.tvshow.ui.home.HomeFragment
+
 
 class MainViewPager internal constructor(fm: FragmentManager) : FragmentPagerAdapter(fm) {
 
