@@ -1,14 +1,14 @@
-package br.com.douglas.tvshow.ui.main.home
+package br.com.douglas.tvshow.ui.home
 
 
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.douglas.tvshow.R
+import br.com.douglas.tvshow.base.BaseFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : BaseFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
