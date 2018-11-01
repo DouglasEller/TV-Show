@@ -17,4 +17,7 @@ interface TVShowDao {
 
     @Query("DELETE from TVShowsResponse where id = :id")
     fun deleteById(id: Long)
+
+    @Query("SELECT * from TVShowsResponse where id = :id")
+    fun findById(id: Long): TVShowsResponse
 }

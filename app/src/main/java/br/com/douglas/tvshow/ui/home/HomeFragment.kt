@@ -19,8 +19,8 @@ import kotlinx.android.synthetic.main.fragment_home.*
 class HomeFragment : BaseFragment(), HomeCallback, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var db: AppDataBase
-
     private lateinit var viewModel: HomeViewModel
+
     private val clickButtonPositive = DialogInterface.OnClickListener { _, _ ->
         callShowsList()
     }
@@ -48,11 +48,16 @@ class HomeFragment : BaseFragment(), HomeCallback, SwipeRefreshLayout.OnRefreshL
 
     override fun onLoadTVShows(tvShowsResponse: List<TVShowsResponse>) {
         dismissLoad()
-        rv_shows_home.layoutManager = LinearLayoutManager(context)
-        rv_shows_home.adapter = TVShowsAdapter(tvShowsResponse)
-        if(tvShowsResponse[1].id!!.equals(1)){
-           // db.tvShowDao().insert(tvShowsResponse[4])
+        tvShowsResponse.let {
+            it.forEach { tvShow ->
+                if (db.tvShowDao().findById(tvShow.id!!) != null) {
+                    tvShow.isFavorite = true
+                }
+            }
         }
+
+        rv_shows_home.layoutManager = LinearLayoutManager(context)
+        rv_shows_home.adapter = TVShowsAdapter(tvShowsResponse, context!!, db)
     }
 
     override fun onError() {
@@ -62,8 +67,8 @@ class HomeFragment : BaseFragment(), HomeCallback, SwipeRefreshLayout.OnRefreshL
         alertDialog.setTitle(getString(R.string.title_error))
         alertDialog.setMessage(Html.fromHtml(getString(R.string.msg_error)))
         alertDialog.setCancelable(false)
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.alertPositveBtn), clickButtonPositive)
-        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.alertNegativeBtn)) { dialog, _ -> dialog.dismiss() }
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.alert_positive_btn), clickButtonPositive)
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.alert_negative_btn)) { dialog, _ -> dialog.dismiss() }
         alertDialog.show()
     }
 

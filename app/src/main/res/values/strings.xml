@@ -4,10 +4,12 @@
     <string name="label_shows">Shows</string>
     <string name="label_favorite">Favorite</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_error">Oops, algo deu errado</string>
-    <string name="msg_error">Ocorreu um erro ao buscar dados. Você quer tentar novamente?</string>
-    <string name="alertPositveBtn">Repetir</string>
-    <string name="alertNegativeBtn">Cancelar</string>
+    <string name="title_error">Oops, something went wrong</string>
+    <string name="msg_error">An error occurred while fetching data. Do you want to try again?</string>
+    <string name="msg_saving_favorite">Do you want to save favorites?</string>
+    <string name="msg_removing_favorite">Do you want to remove favorites?</string>
+    <string name="alert_save_btn">Save</string>
+    <string name="alert_remove_btn">Remove</string>
+    <string name="alert_positive_btn">Retry</string>
+    <string name="alert_negative_btn">Cancel</string>
 </resources>

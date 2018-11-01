@@ -2,24 +2,24 @@ package br.com.douglas.tvshow.network.vo
 
 import android.arch.persistence.room.ColumnInfo
 import android.arch.persistence.room.Entity
+import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
-import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
-
 
 @Entity
-@Parcelize
-data class TVShowsResponse (
-        @PrimaryKey(autoGenerate = false)
-        val id: Long? = null,
+class TVShowsResponse constructor(id: Long, name: String, summary: String, isFavorite: Boolean) {
+    @PrimaryKey(autoGenerate = false)
+    var id: Long? = id
 
-        @ColumnInfo(name = "validated")
-        val name: String? = "",
+    @ColumnInfo(name = "name")
+    var name: String? = name
 
-        @ColumnInfo(name = "validated")
-        val summary: String? = "",
+    @ColumnInfo(name = "summary")
+    var summary: String? = summary
 
-        @ColumnInfo(name = "image")
-        val image: Image? = null
-) : Parcelable
+    @ColumnInfo(name = "isFavorite")
+    var isFavorite: Boolean = isFavorite
+
+    @Ignore
+    var image: Image? = null
+}
 

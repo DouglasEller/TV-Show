@@ -1,6 +1,5 @@
 package br.com.douglas.tvshow.ui.favorite
 
-
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -30,7 +29,13 @@ class FavoriteFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val tvShowsList = db.tvShowDao().getAll()
+        tvShowsList.let {
+            it.forEach { tvShow ->
+                tvShow.image = db.imageDao().findById(tvShow.id!!)
+            }
+        }
         rv_shows_favorite.layoutManager = LinearLayoutManager(context)
-        rv_shows_favorite.adapter = TVShowsAdapter(db.tvShowDao().getAll())
+        rv_shows_favorite.adapter = TVShowsAdapter(tvShowsList, context!!, db)
     }
 }

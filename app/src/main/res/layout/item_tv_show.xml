@@ -42,4 +42,13 @@
         app:layout_constraintTop_toTopOf="@+id/iv_tv_show_item"
         app:srcCompat="@drawable/ic_save"/>
 
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:alpha=".12"
+        android:background="#000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/iv_tv_show_item"/>
+
 </android.support.constraint.ConstraintLayout>
