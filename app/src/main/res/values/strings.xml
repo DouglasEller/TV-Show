@@ -6,4 +6,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_error">Oops, algo deu errado</string>
+    <string name="msg_error">Ocorreu um erro ao buscar dados. Você quer tentar novamente?</string>
+    <string name="alertPositveBtn">Repetir</string>
+    <string name="alertNegativeBtn">Cancelar</string>
 </resources>

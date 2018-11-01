@@ -1,25 +1,34 @@
 package br.com.douglas.tvshow.ui.home
 
+import android.app.AlertDialog
 import android.arch.lifecycle.ViewModelProviders
+import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
-import android.util.Log
+import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.douglas.tvshow.R
 import br.com.douglas.tvshow.base.BaseFragment
+import br.com.douglas.tvshow.database.AppDataBase
 import br.com.douglas.tvshow.network.vo.TVShowsResponse
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : BaseFragment(), HomeCallback, SwipeRefreshLayout.OnRefreshListener {
 
+    private lateinit var db: AppDataBase
+
     private lateinit var viewModel: HomeViewModel
+    private val clickButtonPositive = DialogInterface.OnClickListener { _, _ ->
+        callShowsList()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        db = AppDataBase.getInstance(activity!!)!!
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(HomeViewModel::class.java)
         viewModel.setLifecycleOwner(this)
@@ -35,17 +44,27 @@ class HomeFragment : BaseFragment(), HomeCallback, SwipeRefreshLayout.OnRefreshL
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         sw_home.setOnRefreshListener(this)
-
     }
 
     override fun onLoadTVShows(tvShowsResponse: List<TVShowsResponse>) {
         dismissLoad()
         rv_shows_home.layoutManager = LinearLayoutManager(context)
         rv_shows_home.adapter = TVShowsAdapter(tvShowsResponse)
+        if(tvShowsResponse[1].id!!.equals(1)){
+           // db.tvShowDao().insert(tvShowsResponse[4])
+        }
     }
 
     override fun onError() {
         dismissLoad()
+
+        val alertDialog = AlertDialog.Builder(activity).create()
+        alertDialog.setTitle(getString(R.string.title_error))
+        alertDialog.setMessage(Html.fromHtml(getString(R.string.msg_error)))
+        alertDialog.setCancelable(false)
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.alertPositveBtn), clickButtonPositive)
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.alertNegativeBtn)) { dialog, _ -> dialog.dismiss() }
+        alertDialog.show()
     }
 
     override fun onRefresh() {

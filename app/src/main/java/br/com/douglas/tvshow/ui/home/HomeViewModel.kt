@@ -17,7 +17,7 @@ internal constructor(private val tvShowsDataSource: TVShowsDataSource): BaseView
     private var tvShowsList: List<TVShowsResponse> = ArrayList()
 
     fun loadTVShows() {
-        tvShowsDataSource.getTVShows(100).observe(getLifecycleOwner(),
+        tvShowsDataSource.getTVShows(1).observe(getLifecycleOwner(),
                 Observer<ApiResponse<List<TVShowsResponse>>> { response ->
                     run {
                         response?.let {

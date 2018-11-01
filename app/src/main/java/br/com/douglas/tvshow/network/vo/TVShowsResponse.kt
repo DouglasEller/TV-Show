@@ -1,13 +1,25 @@
 package br.com.douglas.tvshow.network.vo
 
-import com.google.gson.annotations.SerializedName
+import android.arch.persistence.room.ColumnInfo
+import android.arch.persistence.room.Entity
+import android.arch.persistence.room.PrimaryKey
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-class TVShowsResponse (
+
+@Entity
+@Parcelize
+data class TVShowsResponse (
+        @PrimaryKey(autoGenerate = false)
         val id: Long? = null,
+
+        @ColumnInfo(name = "validated")
         val name: String? = "",
+
+        @ColumnInfo(name = "validated")
         val summary: String? = "",
 
-        @SerializedName("image")
+        @ColumnInfo(name = "image")
         val image: Image? = null
-)
+) : Parcelable
 

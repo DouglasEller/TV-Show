@@ -40,6 +40,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/iv_tv_show_item"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/iv_tv_show_item"
-        app:srcCompat="@drawable/ic_remove"/>
+        app:srcCompat="@drawable/ic_save"/>
 
 </android.support.constraint.ConstraintLayout>

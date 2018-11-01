@@ -21,7 +21,7 @@ class TVShowApplication : Application(), HasActivityInjector {
     companion object {
         private var instance: TVShowApplication? = null
 
-        fun getApplicationContext(): Context {
+        fun applicationContext(): Context {
             return instance!!.applicationContext
         }
     }
