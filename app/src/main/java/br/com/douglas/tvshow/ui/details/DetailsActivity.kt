@@ -24,7 +24,7 @@ class DetailsActivity : AppCompatActivity() {
 
         supportActionBar?.title = bundle.getString("NAME")
         tv_description.text = Html.fromHtml(bundle.getString("SUMMARY"))
-        tv_link.text = bundle.getString("URL")
+        tv_link.text = getString(R.string.url_imdb) + bundle.getString("IMDB")
 
         Glide.with(iv_poster.context)
                 .load(bundle.getString("IMAGE_URL"))

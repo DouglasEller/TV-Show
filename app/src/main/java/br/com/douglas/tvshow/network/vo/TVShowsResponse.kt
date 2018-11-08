@@ -1,12 +1,9 @@
 package br.com.douglas.tvshow.network.vo
 
-import android.arch.persistence.room.ColumnInfo
-import android.arch.persistence.room.Entity
-import android.arch.persistence.room.Ignore
-import android.arch.persistence.room.PrimaryKey
+import android.arch.persistence.room.*
 
 @Entity
-class TVShowsResponse constructor(id: Long, name: String, summary: String, url: String, isFavorite: Boolean) {
+class TVShowsResponse constructor(id: Long, name: String, summary: String, isFavorite: Boolean) {
     @PrimaryKey(autoGenerate = false)
     var id: Long? = id
 
@@ -16,8 +13,8 @@ class TVShowsResponse constructor(id: Long, name: String, summary: String, url: 
     @ColumnInfo(name = "summary")
     var summary: String? = summary
 
-    @ColumnInfo(name = "url")
-    var url: String? = url
+    @Ignore
+    var externals: Externals? = null
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = isFavorite

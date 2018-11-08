@@ -2,13 +2,7 @@ package br.com.douglas.tvshow.network.vo
 
 import android.arch.persistence.room.*
 
-@Entity(foreignKeys = [
-    ForeignKey(
-            entity = TVShowsResponse::class,
-            parentColumns = arrayOf("id"),
-            childColumns = arrayOf("tvShowId"),
-            onDelete = ForeignKey.CASCADE)
-], indices = [Index(value = ["tvShowId"])])
+@Entity
 class Image constructor(tvShowId: Long, medium: String, original: String) {
 
     @PrimaryKey(autoGenerate = false)

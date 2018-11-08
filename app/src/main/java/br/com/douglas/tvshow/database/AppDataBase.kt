@@ -4,16 +4,19 @@ import android.arch.persistence.room.Database
 import android.arch.persistence.room.Room
 import android.arch.persistence.room.RoomDatabase
 import android.content.Context
+import br.com.douglas.tvshow.database.dao.ExternalsDao
 import br.com.douglas.tvshow.database.dao.ImageDao
 import br.com.douglas.tvshow.database.dao.TVShowDao
+import br.com.douglas.tvshow.network.vo.Externals
 import br.com.douglas.tvshow.network.vo.Image
 import br.com.douglas.tvshow.network.vo.TVShowsResponse
 
-@Database(entities = [(TVShowsResponse::class), (Image::class)], version = 1)
+@Database(entities = [(TVShowsResponse::class), (Image::class), (Externals::class)], version = 1)
 abstract class AppDataBase : RoomDatabase() {
 
     abstract fun tvShowDao(): TVShowDao
     abstract fun imageDao(): ImageDao
+    abstract fun externalsDao(): ExternalsDao
 
     companion object {
         private var INSTANCE: AppDataBase? = null

@@ -92,9 +92,11 @@ class TVShowsAdapter(var tvShowsList: MutableList<TVShowsResponse>,
         private val clickButtonSave = DialogInterface.OnClickListener { _, _ ->
             itemView.iv_action_icon_item.setImageDrawable(context.getDrawable(R.drawable.ic_save))
             tvShow?.image?.tvShowId = tvShow?.id
+            tvShow?.externals?.tvShowId = tvShow?.id
             tvShow?.isFavorite = true
             db.tvShowDao().insert(tvShow!!)
             db.imageDao().insert(tvShow?.image!!)
+            db.externalsDao().insert(tvShow?.externals!!)
             tvShowsAdapter.notifyDataSetChanged()
         }
 
@@ -109,7 +111,7 @@ class TVShowsAdapter(var tvShowsList: MutableList<TVShowsResponse>,
             val bundle = Bundle()
             bundle.putString("NAME", tvShow?.name)
             bundle.putString("SUMMARY", tvShow?.summary)
-            bundle.putString("URL", tvShow?.url)
+            bundle.putString("IMDB", tvShow?.externals?.imdb)
             bundle.putString("IMAGE_URL", tvShow?.image?.original)
             return bundle
         }

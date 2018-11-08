@@ -36,6 +36,7 @@ class FavoriteFragment : Fragment() {
         tvShowsList.let {
             it.forEach { tvShow ->
                 tvShow.image = db.imageDao().findById(tvShow.id!!)
+                tvShow.externals = db.externalsDao().findById(tvShow.id!!)
             }
         }
 

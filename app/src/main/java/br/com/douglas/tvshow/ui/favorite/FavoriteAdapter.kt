@@ -94,7 +94,7 @@ class FavoriteAdapter(var tvShowsList: MutableList<TVShowsResponse>,
             val bundle = Bundle()
             bundle.putString("NAME", tvShow?.name)
             bundle.putString("SUMMARY", tvShow?.summary)
-            bundle.putString("URL", tvShow?.url)
+            bundle.putString("IMDB", tvShow?.externals?.imdb)
             bundle.putString("IMAGE_URL", tvShow?.image?.original)
             return bundle
         }
