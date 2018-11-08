@@ -7,5 +7,4 @@ import br.com.douglas.tvshow.network.vo.TVShowsResponse
 interface TVShowsDataSource {
 
     fun getTVShows(page: Int): LiveData<ApiResponse<List<TVShowsResponse>>>
-
 }

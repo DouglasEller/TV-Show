@@ -16,7 +16,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_tv_show.view.*
 
-class TVShowsAdapter(private val tvShowsList: List<TVShowsResponse>,
+class TVShowsAdapter(var tvShowsList: MutableList<TVShowsResponse>,
                      private val context: Context,
                      private val db: AppDataBase)
     : Adapter<TVShowsAdapter.TVShowsViewHolder>() {
@@ -80,20 +80,16 @@ class TVShowsAdapter(private val tvShowsList: List<TVShowsResponse>,
         private val clickButtonSave = DialogInterface.OnClickListener { _, _ ->
             itemView.iv_action_icon_item.setImageDrawable(context.getDrawable(R.drawable.ic_save))
             tvShow?.image?.tvShowId = tvShow?.id
+            tvShow?.isFavorite = true
             db.tvShowDao().insert(tvShow!!)
-            tvShow?.image?.tvShowId = tvShow?.id
             db.imageDao().insert(tvShow?.image!!)
-            updateTVShow()
+            tvShowsAdapter.notifyDataSetChanged()
         }
 
         private val clickButtonRemove = DialogInterface.OnClickListener { _, _ ->
             itemView.iv_action_icon_item.setImageDrawable(context.getDrawable(R.drawable.ic_remove))
             db.tvShowDao().deleteById(tvShow?.id!!)
-            updateTVShow()
-        }
-
-        private fun updateTVShow() {
-            tvShow!!.isFavorite = !tvShow!!.isFavorite
+            tvShow?.isFavorite = false
             tvShowsAdapter.notifyDataSetChanged()
         }
     }

@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.DialogInterface
 import android.os.Bundle
 import android.support.v4.widget.SwipeRefreshLayout
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.text.Html
 import android.view.LayoutInflater
@@ -14,12 +15,16 @@ import br.com.douglas.tvshow.R
 import br.com.douglas.tvshow.base.BaseFragment
 import br.com.douglas.tvshow.database.AppDataBase
 import br.com.douglas.tvshow.network.vo.TVShowsResponse
+import br.com.douglas.tvshow.ui.favorite.FavoriteAdapter
+import br.com.douglas.tvshow.ui.main.MainActivity
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home.view.*
 
 class HomeFragment : BaseFragment(), HomeCallback, SwipeRefreshLayout.OnRefreshListener {
 
     private lateinit var db: AppDataBase
     private lateinit var viewModel: HomeViewModel
+    private var tvShowsList: MutableList<TVShowsResponse> = arrayListOf()
 
     private val clickButtonPositive = DialogInterface.OnClickListener { _, _ ->
         callShowsList()
@@ -35,29 +40,31 @@ class HomeFragment : BaseFragment(), HomeCallback, SwipeRefreshLayout.OnRefreshL
         viewModel.callBack = this
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        callShowsList()
-        return inflater.inflate(R.layout.fragment_home, container, false)
-    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        sw_home.setOnRefreshListener(this)
+        val view = inflater.inflate(R.layout.fragment_home, container, false)
+        view.sw_home.setOnRefreshListener(this)
+        callShowsList()
+        return view
     }
 
     override fun onLoadTVShows(tvShowsResponse: List<TVShowsResponse>) {
         dismissLoad()
-        tvShowsResponse.let {
+        activity!!.runOnUiThread {
+            tvShowsList.clear()
+        }
+        tvShowsList = tvShowsResponse.toMutableList()
+        updateList()
+    }
+
+    internal fun updateList() {
+        tvShowsList.let {
             it.forEach { tvShow ->
-                if (db.tvShowDao().findById(tvShow.id!!) != null) {
-                    tvShow.isFavorite = true
-                }
+                tvShow.isFavorite = db.tvShowDao().findById(tvShow.id!!) != null
             }
         }
-
         rv_shows_home.layoutManager = LinearLayoutManager(context)
-        rv_shows_home.adapter = TVShowsAdapter(tvShowsResponse, context!!, db)
+        rv_shows_home.adapter = TVShowsAdapter(tvShowsList, context!!, db)
     }
 
     override fun onError() {

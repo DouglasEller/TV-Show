@@ -14,4 +14,7 @@ interface ImageDao {
 
     @Query("SELECT * from Image where tvShowId = :id")
     fun findById(id: Long) : Image
+
+    @Query("SELECT * from Image")
+    fun getAll(): List<Image>
 }

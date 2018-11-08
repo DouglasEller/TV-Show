@@ -5,10 +5,11 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.ViewPager
-import android.support.v7.app.AppCompatActivity
 import android.view.MenuItem
 import br.com.douglas.tvshow.R
 import br.com.douglas.tvshow.base.BaseActivity
+import br.com.douglas.tvshow.ui.favorite.FavoriteFragment
+import br.com.douglas.tvshow.ui.home.HomeFragment
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.support.HasSupportFragmentInjector
@@ -44,6 +45,18 @@ class MainActivity : BaseActivity(),
 
     override fun onPageSelected(position: Int) {
         bn_main.menu.getItem(position).isChecked = true
+
+        when (position) {
+            0 -> {
+                val fragment = supportFragmentManager.fragments[position] as HomeFragment
+                fragment.updateList()
+            }
+
+            1 -> {
+                val fragment = supportFragmentManager.fragments[position] as FavoriteFragment
+                fragment.updateList()
+            }
+        }
     }
 
     override fun onPageScrollStateChanged(p0: Int) {
