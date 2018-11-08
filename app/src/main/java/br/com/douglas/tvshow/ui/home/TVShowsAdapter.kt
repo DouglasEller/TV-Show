@@ -3,6 +3,8 @@ package br.com.douglas.tvshow.ui.home
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.Adapter
 import android.text.Html
@@ -12,6 +14,7 @@ import android.view.ViewGroup
 import br.com.douglas.tvshow.R
 import br.com.douglas.tvshow.database.AppDataBase
 import br.com.douglas.tvshow.network.vo.TVShowsResponse
+import br.com.douglas.tvshow.ui.details.DetailsActivity
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.android.synthetic.main.item_tv_show.view.*
@@ -60,6 +63,15 @@ class TVShowsAdapter(var tvShowsList: MutableList<TVShowsResponse>,
             itemView.iv_action_icon_item.setOnClickListener {
                 showAlertSaveRemove()
             }
+            itemView.setOnClickListener {
+                startDetails()
+            }
+        }
+
+        private fun startDetails() {
+            val intent = Intent(context, DetailsActivity::class.java)
+            intent.putExtra("TV_SHOW_BUNDLE", getTVShowBundle())
+            context.startActivity(intent)
         }
 
         private fun showAlertSaveRemove() {
@@ -91,6 +103,15 @@ class TVShowsAdapter(var tvShowsList: MutableList<TVShowsResponse>,
             db.tvShowDao().deleteById(tvShow?.id!!)
             tvShow?.isFavorite = false
             tvShowsAdapter.notifyDataSetChanged()
+        }
+
+        private fun getTVShowBundle():Bundle{
+            val bundle = Bundle()
+            bundle.putString("NAME", tvShow?.name)
+            bundle.putString("SUMMARY", tvShow?.summary)
+            bundle.putString("URL", tvShow?.url)
+            bundle.putString("IMAGE_URL", tvShow?.image?.original)
+            return bundle
         }
     }
 }

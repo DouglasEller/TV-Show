@@ -6,7 +6,7 @@ import android.arch.persistence.room.Ignore
 import android.arch.persistence.room.PrimaryKey
 
 @Entity
-class TVShowsResponse constructor(id: Long, name: String, summary: String, isFavorite: Boolean) {
+class TVShowsResponse constructor(id: Long, name: String, summary: String, url: String, isFavorite: Boolean) {
     @PrimaryKey(autoGenerate = false)
     var id: Long? = id
 
@@ -15,6 +15,9 @@ class TVShowsResponse constructor(id: Long, name: String, summary: String, isFav
 
     @ColumnInfo(name = "summary")
     var summary: String? = summary
+
+    @ColumnInfo(name = "url")
+    var url: String? = url
 
     @ColumnInfo(name = "isFavorite")
     var isFavorite: Boolean = isFavorite
